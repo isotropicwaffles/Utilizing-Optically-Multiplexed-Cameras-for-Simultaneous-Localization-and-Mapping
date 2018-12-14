@@ -1,0 +1,15 @@
+
+Stereo
+
+./Examples/Stereo/Release/stereo_euroc.exe Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml ../../../Image_Data/MH_01_easy/mav0/cam0/data ../../../Image_Data/MH_01_easy/mav0/cam1/data Examples/Stereo/EuRoC_TimeStamps/MH01.txt
+
+monocular
+
+./Examples/Monocular/Release/mono_euroc.exe Vocabulary/ORBvoc.txt Examples/Monocular/EuRoC.yaml ../../../Image_Data/MH_01_easy/mav0/cam0/data Examples/Monocular/EuRoC_TimeStamps/MH01.txt
+
+
+./Examples/Monocular/Release/mono_euroc.exe Vocabulary/ORBvoc.txt Examples/butterfly/butterfly.yaml Examples/butterfly/left Examples/butterfly/time_stamps.txt
+
+
+
+./Examples/Stereo/Release/stereo_euroc.exe Vocabulary/ORBvoc.txt Examples/StereoMultiplexedColorFilter/FlightGogglesStereoMultiplexed.yaml  Examples/butterfly/Butterfly_World_Camera_L_paper Examples/butterfly/Butterfly_World_Camera_L_paper Examples/butterfly/time_stamps.txt

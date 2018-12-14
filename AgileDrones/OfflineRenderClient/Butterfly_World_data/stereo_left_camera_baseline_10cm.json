@@ -1,0 +1,46 @@
+{
+	"Unity": {
+		"forceFrameRender": true,
+		"sceneIsInternal": true,
+		"temporalJitterScale": 0.475,
+		"temporalStability": 8,
+		"hdrResponse": 0.001,
+		"sharpness": 9.5,
+		"adaptiveEnhance": 0.32,
+		"microShimmerReduction": 3,
+		"staticStabilityPower": 0.5,
+		"sceneFilename": "Butterfly_World",
+		"initial_translation": [
+			-1.2, 
+             2,
+           -1.5
+		],
+		"initial_rpy_deg": [
+			0,
+			0,
+			90
+		]
+	},
+	"Camera": {
+		"IDs": "Butterfly_World_Camera_L_paper",
+		"height": 768,
+		"width": 1024,
+		"FOV": 60,
+		"maxFramerate": 30,
+		"channels": 3,
+		"depthScale": 0.01,
+		"compressImage": false,
+		"translation": [
+				0,
+				-0.05,
+				0
+		],
+		"quat": [
+				1,
+                0,
+                0,
+                0
+		],
+		"isDepth": false
+	}	
+}

@@ -1,0 +1,522 @@
+
+Unity:
+    render_only_keyframes: false
+    output_folder: /home/daedalus/AgileDrones/unity_images
+    allowBadTimestamps: true
+    image_port: 10254
+    image_channel: IMAGE_MonoCam
+    pose_channel: poseMoCap
+    pose_port: 10253
+    sceneIsInternal: true
+    temporalJitterScale: 0.475
+    temporalStability: 8
+    hdrResponse: 0.001
+    sharpness: 9.5
+    adaptiveEnhance: 0.32
+    microShimmerReduction: 3.0
+    staticStabilityPower: 0.5
+    sceneFilename: nyc_subway
+    initial_translation: [-14.0, -1.7, 0.5]
+    initial_rpy_deg: [0.0, 0.0, 0.0]
+
+logName:
+    host:
+        folder: blackbird/ISER2/unprocessed/host/
+    
+    drone:
+        folder: ISER/
+    
+    date: 0
+    time: 1
+    keys: [Unity.sceneFilename, Controllers.Trajectory.name, maxSpeed=Controllers.Trajectory.maxSpeed]
+
+Drone:
+    name: blackbird
+
+IMU:
+    translation: [0.0, 0.0, 0.0]
+    quat: [0.707997, 0.004706, -0.003721, 0.706190]
+    rawChannel: imuRaw
+    calibTime: 3.0
+
+QuadModel:
+    thrustCoef: 1.91e-06
+    torqueCoef: 2.6e-7
+    nRotors: 4
+    mass: 0.873
+    Ixx: 0.0049
+    Iyy: 0.0049
+    Izz: 0.0069
+    armLength: 0.08
+    propHeight: 0.023
+
+MotorModel:
+    nBlades: 3
+    propRad: 0.0765
+    propChord: 0.017
+    flapE: 0.0
+    bladeMass: 0.0042
+    hubClampMass: 0.007
+    bladeClampR: 0.0074
+    liftSlopeGradient: 5.5
+    thetaHub: 0.105
+    thetaTip: 0.0698
+    thrustCoeff: 0.0146
+    motorTimeConstant: 0.06
+    motorDirection: [1, -1, 1, -1]
+
+EscModel:
+    i2cBus: /dev/i2c-7
+    escI2cAddress: 09
+    rpmFeedbackSupported: true
+    rpmFeedbackChannel: rpmFeedback
+    maxPwm: 2000
+    idlePwm: 1100
+    minPwm: 1000
+    Omega2Pwm: 0.0033
+    pwmChannel: motorsPwms
+    voltage0: 14.8
+    volDrop: 4.26e-7
+    omegaMax: 1500
+
+MotorController:
+    DynModel:
+        gainP: 24674.0110027234
+        gainQ: 222.144146907918
+    
+    MRAC:
+        theta_max: 2.
+        ss_gain: 2.6949
+        gamma: 0.0001
+    
+    Polyfit:
+        a: -0.00123703943351454
+        b: 5.5651564652955
+        c: -3889.8254824938
+        min: 1000
+        max: 2200
+    
+    K_p: 0.
+    K_i: 0.2
+    int_max: 199.
+    use_mrac: false
+
+Constants:
+    rho: 1.2041
+    gravity: 9.81
+    muv: 1.5e-5
+
+Cameras:
+    IDs: Camera_L
+    cameraType: Unity
+    height: 768
+    width: 1024
+    FOV: 70.0
+    maxFramerate: 121
+    synchronized: false
+    depthScale: 0.01
+    compressImage: false
+    Camera_L:
+        translation: [0.0, 0.0, 0.0]
+        quat: [0.5, 0.5, 0.5, 0.5]
+        calibration: PinholeCalib
+        mask: none
+        imageChannel: Camera_L_debug_raw
+        publishRaw: true
+        useAA: false
+        height: 768
+        width: 1024
+        channels: 3
+        isDepth: false
+    
+
+PinholeCalib:
+    calType: Cal3_S2
+    u0: 511.5
+    v0: 383.5
+    s: 0.0
+    fx: 548.4088
+    fy: 548.4088
+    cameraHeight: 768
+    cameraWidth: 1024
+
+Controllers:
+    stoppingDistance: 0.5
+    usingIntegrator: 0
+    Pxy_x: 0.3
+    Dxy_x: 0.2
+    Pxy_y: 0.3
+    Dxy_y: 0.2
+    Pz: 5
+    Dz: 2.2
+    Py: 0.05
+    Pp: 0.31
+    Pr: 0.31
+    Dy: 0.025
+    Dp: 0.04
+    Dr: 0.04
+    Iy: 0
+    Ip: 0
+    Ir: 0
+    Iz: 0
+    Ixy_x: 0
+    Ixy_y: 0
+    maxAngle: 1.4
+    maxTorque: 0.25
+    maxOmega: 2200
+    aTotalThrust: .25
+    aTauYaw: 35.2669
+    aTauPR: 2.1427
+    multFactController: 1
+    Trajectory:
+        rampSpeed: 1.0
+        flyTime: 120.0
+        speedupTime: 4.0
+        maxSpeed: 1.0
+        endPos: [-3.70, 0.05, -1.5]
+        endYawDeg: 0.00
+        offsetPos: [0.0, 0.0, 0.5]
+        offsetYawDeg: 0.0
+        verbose: 1
+        folder: config/controllers/trajectory
+        name: mouse/mouse_yawForward_velMinSnapTop7p8
+    
+    NDI:
+        getTrajFromFile: 1
+        publish_debug: 1
+        safety:
+            maxAttIncrement: 0.55
+            maxThrustIncrement: 3.
+        
+        posPID:
+            P: 3.
+            I: 0.
+            D: 0.3
+        
+        velPID:
+            P: 2.5
+            I: 0.
+            D: 0.5
+        
+        posvertPID:
+            P: 3.
+            I: 0.
+            D: 0.3
+        
+        velvertPID:
+            P: 1.0
+            I: 0.
+            D: 0.2
+        
+        intGain:
+            phi: 0.
+            theta: 0.
+            psi: 0.
+        
+        propGain:
+            phi: 90.
+            theta: 90.
+            psi: 12.
+        
+        derGain:
+            phi: 10.
+            theta: 10.
+            psi: 8.
+        
+        accFilter:
+            gainP: 35530.5758439217
+            gainQ: 266.572976289502
+        
+        accBiasFilter:
+            gainP: 0.0986960440108936
+            gainQ: 0.444288293815837
+        
+        motorDynamics:
+            gainP: 355.305758439217
+            gainQ: 26.6572976289502
+        
+        G1:
+            G_00: 5.3333e-05
+            G_10: 5.1967e-05
+            G_20: -3.3918e-05
+            G_30: -4.2572e-06
+            G_01: -5.5789e-05
+            G_11: 4.8852e-05
+            G_21: 3.5567e-05
+            G_31: -2.5208e-06
+            G_02: -6.2807e-05
+            G_12: -4.9508e-05
+            G_22: -3.9278e-05
+            G_32: -4.8741e-06
+            G_03: 6.9474e-05
+            G_13: -5.2787e-05
+            G_23: 3.8454e-05
+            G_33: -1.7663e-06
+        
+        G2:
+            G_00: 0.
+            G_10: 0.
+            G_20: 0.
+            G_30: 0.
+            G_01: 0.
+            G_11: 0.
+            G_21: 0.
+            G_31: 0.
+            G_02: 0.
+            G_12: 0.
+            G_22: 0.
+            G_32: 0.
+            G_03: 0.
+            G_13: 0.
+            G_23: 0.
+            G_33: 0.
+        
+    
+    Backstepping:
+        alpha:
+            0: 11
+            1: 5
+            2: 11
+            3: 5
+            4: 0.8
+            5: 0.8
+            6: 1.0
+            7: 1.0
+            8: 5.23
+            9: .76
+            10: 5.23
+            11: 0.76
+        
+    
+
+VIO:
+    externalPoseChannel: 
+    SmartFactor:
+        smartNoiseSigma: 4e-2
+        rankTolerance: 0.05
+        landmarkDistanceThreshold: 8
+        outlierRejection: 1.0e-2
+        retriangulation: 1.0e-05
+        minNumKeys: 1
+    
+    Reset:
+        resetPoint: [-1.37, -2.63, -1.9]
+        resetRadius: 0.5
+        BufferSize: 480
+        allowReset: false
+        timeshift: 0
+    
+    Debug:
+        dump: debug_vio.txt
+        logReprojectionErrors: false
+        publishFactorGraph: 0
+        publishStateHistory: 0
+    
+    IMU:
+        initRollPitchSigma: 1.0
+        gyroNoiseDensity: 0.0001
+        accNoiseDensity: 0.002
+        imuIntegrationSigma: 1e-08
+        gyroBiasSigma: 0.000003
+        accBiasSigma: 0.0001
+        gyroBiasInitialSigma: 0.0005
+        accBiasInitialSigma: 0.006
+        gravityMagnitude: 9.805
+        maxImuGap: 0.1
+        bufferSize: 5.0
+    
+    Dynamics:
+        useDynamics: true
+        dynamicsInitialGuess: false
+        accNoiseDensity: 0.04
+        bufferSize: 5.0
+        rpmInterval: 0.005
+        maxDynImuGap: 0.05
+        takeoff_pause: 5
+        Model:
+            body_mass: 0.915
+            coeff_rpm2thrust: 2.03e-8
+            drag: [0.4, 0.3, 0.2]
+            tilt: [-0.0166, -0.0032, -0.9999]
+        
+        debugFile: 
+        debug: true
+    
+    ISAM:
+        relinearizeThreshold: 1e-4
+        relinearizeSkip: 1
+        smootherTime: 4
+        maxPredictionGap: 300000
+    
+    NoMotion:
+        zeroVelocitySigma: 1e-5
+        noMotionSigmaTrans: 1e-6
+        noMotionSigmaRot: 1.0e-05
+        noTransSigma: 0.03
+        degeneracyThreshold: 0
+    
+    RunTime:
+        optTime: 500000
+        disparityThreshold: 0.5
+        numOptimize: 1
+        noMotionMinFeatures: 10
+        noMotionMaxDeltaP: 0.05
+    
+    Prior:
+        sigmaYaw: 0.0001
+        sigmaRollPitch: 0.034
+        sigmaTrans: 0.00001
+        sigmaVel: 0.0001
+    
+
+Tracker:
+    mode: camera
+    Tracker:
+        featPerFrame: 500
+        featureQuality: 0.1
+        minDistance: 20
+        k: 0.08
+        blockSize: 5
+        kltWinSize: 11
+        kltMaxIter: 100
+        kltMaxLevel: 5
+        kltEpsilon: 1e-4
+        maxKeyframeTime: 200000
+        minKeyframeTime: 100000
+        minFeaturesKeyframe: 20
+        disparityKeyframeThresh: 100000
+        maxAge: 3.0
+        kBest: 150
+        useGyroRegularization: true
+        kltAdaptiveWindow: 1.5
+    
+    Options:
+        trackingHardware: GPU
+        detectionHardware: GPU
+        useMask: true
+        useHarrisDetector: false
+    
+    Debug:
+        compareDetectors: false
+        compareTrackers: false
+        showFrame: true
+        verbosity: 0
+        reuploadGPUinputs: false
+    
+    RANSAC:
+        type: FivePoint
+        ransacThreshold: 0.5
+        ransacProbability: 0.99
+        ransacMaxIterations: 250
+        disparityThreshold: 1
+    
+
+EKF:
+    accelSigmaEKF: 0.005
+    gyroSigmaEKF: 0.001
+    smartNoiseSigmaEKF: 0.08
+    positionSigmaEKF: 0.01
+    orientSigmaEKF: 0.001
+    velocitySigmaEKF: 0.01
+    maxMaxReprojError: 16
+    minRankValue: 0.02
+    minNumKeys: 1
+    outlierCutoff: 0.06
+    smootherTime: 2.0
+    maxFeatures: 150
+    disparityThreshold: 0.5
+    zCutoff: 0.5
+
+RemoteController:
+    bodyFrameControl: 1
+    INITPOWERGAIN: 0
+    MINPOWERGAIN: 0
+    MAXPOWERGAIN: 100
+    DEFAULTPOWERGAIN: 20
+    STEPSPOWERGAIN: 20
+    STEPSPITCHROLL: 0.5
+    STEPSYAW: 0.15
+    INITX: 0.0
+    INITY: 0.0
+    INITZ: 0.0
+    MINALT: -5.0
+    MAXALT: 0.0
+    STEPSALTITUDE: 0.2
+    STEPSPOS: 0.20
+    MINPOS: -5.0
+    MAXPOS: 5.0
+    TAKEOFFALTITUDE: -0.75
+    STEPSYAW_P: 0.005
+    STEPSYAW_D: 0.005
+    STEPSRP_P: 0.02
+    STEPSRP_D: 0.005
+    STEPSPXY_P: 0.01
+    STEPSPXY_D: 0.01
+    STEPSZ_P: 0.2
+    STEPSZ_D: 0.2
+    stepsIirGyro: 0.05
+    windowAng: 0.1
+    stepsWindowAng: 0.02
+
+ComplimentaryFilter:
+    gyroUpdateAccThreshold: 0.0052
+    gyroUpdateAccWeight: 0.001
+    iirAccel: 0
+    iirGyro: 0
+
+Watchdog:
+    stateChannel: poseMoCap
+    orientChannel: mocapOrient
+    watchChannels: [controllerPDPose, motorCommanderI2C, imuAcquisitionXsens, remoteController]
+    maxMocapTimeGapCritical: 0.05
+    maxMocapTimeGapFatal: 0.15
+    minMotorsWsCritical: 200
+    minMotorsWsFatal: 100
+    maxPosCritical: 9.0
+    maxPosFatal: 10.0
+    maxAltCritical: 4.0
+    maxAltFatal: 4.5
+    maxOrientRpCritical: 1.5
+    maxOrientRpFatal: 1.7
+    maxVelPosCritical: 200.0
+    maxVelPosFatal: 210.0
+    maxVelOrientRpCritical: 300.0
+    maxVelOrientRpFatal: 400.0
+    maxVelOrientYCritical: 100.0
+    maxVelOrientYFatal: 150.0
+    maxAccCritical: 20.0
+    maxAccFatal: 25.0
+
+IMU_XSENS:
+    gpio_reset: 416
+    gpio_data_ready: 417
+    gpio_sync_out: 419
+    spi_path: /dev/spidev1.0
+    spi_freq: 2000000
+
+Channels:
+    groundtruth: poseMoCap
+    imuCalib: imuCalibration
+    controlOrient0: mocapOrient
+    controlPosition0: mocapOrient
+    controlOrient1: stateEstimateEKF
+    controlPosition1: stateEstimateEKF
+    controlOrientNDI: mocapOrient
+    controlPositionNDI: mocapOrient
+
+IPs:
+    sim: "*"
+    unity: localhost
+    drone: 192.168.0.104
+
+Net:
+    draw_net: 1
+    rgbt_color: [0, 0, 1, 0]
+    line_width: 4
+    x_min: -5.0
+    y_min: -4.5
+    z_min: -6.0
+    x_max: 5.0
+    y_max: 4.0
+    z_max: -1.0
+
