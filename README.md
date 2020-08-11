@@ -1,3 +1,6 @@
-# 6.869_Project
-
-This Repo will be updated with our code before 12/16/2018. Currently this code is reachable at this link: https://drive.google.com/drive/folders/1NwYRbz3F00Cm2vyPpgXlCL8o9lomHQag?usp=sharing
+# Utilizing Optically Multiplexed Cameras for Simultaneous Localization and Mapping (SLAM)
+**Graduate Course Project: Advanced in Computer Vision (at MIT)**
+## Description
+Three-person team project that explored the feasibility of extending a simultaneous localization and mapping (SLAM) algorithm, ORB-SLAM, to work with optically multiplexed cameras. Outcomes found that spectral filters or stereo epipolar constraints were viable approaches for enabling SLAM on optically multiplexed cameras.
+## Contribution:
+Conception, project lead, data generation, SLAM integration, and execution of two monocular approaches
